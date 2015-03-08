@@ -1,93 +1,20 @@
 /*
 Dominick Cuccurullo
-Entity cpp file
+Entity cpp file, all the functions are defined
 */
 
 #include "Entity.h"
 
-Entity::Entity(float x, float y, float width, float height, GLuint texture) {
-
-	posX = x;
-	posY = y;
-	Entity::width = width;
-	Entity::height = height;
-	rotation = 0.5f;
-	Entity::texture = texture;
-
-
-	float speed = 0.0;
-	float directionX = 0.0;
-	float directionY = 0.0;
-	collided = false;
-
-}
-//Accessors
-float Entity::getX() {
-	return posX;
-}
-
-float Entity::getY() {
-	return posY;
-}
-
-float Entity::getDirectionX() {
-	return directionX;
-}
-
-float Entity::getDirectionY() {
-	return directionY;
-}
-
-float Entity::getSpeed() {
-	return speed;
-}
-
-float Entity::getWidth() {
-	return width;
-}
-
-float Entity::getHeight() {
-	return height;
-}
-
-bool Entity::getCollided(){
-	return collided;
-}
-
-//Mutators
-
-void Entity::setX(float newX) {
-	posX = newX;
-}
-
-void Entity::setY(float newY) {
-	posY = newY;
-}
-
-void Entity::setSpeed(float newSpeed) {
-	speed = newSpeed;
-}
-
-void Entity::setXDirection(float newDir) {
-	directionX = newDir;
-}
-
-void Entity::setYDirection(float newDir) {
-	directionY = newDir;
-}
-void Entity::setCollided(bool flip){
-	collided = flip;
-}
-
-//Methods
-void Entity::draw() { //Same code from HW1 and class
+void Entity::Draw() 
+{ 
+	//Draw  this entities texture
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, texture);
-
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	
 	glMatrixMode(GL_MODELVIEW);
 
 	glLoadIdentity();
-	glTranslatef(posX, posY, 0.0);
+	glTranslatef(x, y, 0.0);
 	glRotatef(rotation, 0.0, 0.0, 1.0);
 
 	GLfloat quad[] = { width*-0.5f, height*0.5f, width*-0.5f, height*-0.5f, width*0.5f, height*-0.5f, width*0.5f, height*0.5f };

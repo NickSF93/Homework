@@ -1,55 +1,31 @@
 /*
 Dominick Cuccurullo
-Entity header file
+Entity header file. 
+Contains all the necessary function/constructor declarations of the Entity class
 */
+
+//includes
 #pragma once
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
 
-class Entity {
+//Entity class declarations
+class Entity
+{
 public:
-	Entity(float x, float y, float width, float height, GLuint texture);
+	void Draw();
 
-
-	//Accessors
-	float getX();
-	float getY();
-	float getSpeed();
-	float getWidth();
-	float getHeight();
-	float getDirectionX();
-	float getDirectionY();
-	bool getCollided();
-
-	//Mutators
-	void setX(float newX);
-	void setY(float newY);
-	void setSpeed(float newSpeed);
-	void setXDirection(float newDir);
-	void setYDirection(float newDir);
-	void setCollided(bool flip);
-
-	//Methods
-	void draw();
-
-private:
-
-	float posX;
-	float posY;
+	float x;
+	float y;
 	float rotation;
 
-	GLuint texture;
+	int textureID;
 
-	float scale;
 	float width;
 	float height;
 
 	float speed;
-	float directionX;
-	float directionY;
-
-	bool collided;
-
-
+	float direction_x;
+	float direction_y;
 };
