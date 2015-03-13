@@ -13,32 +13,32 @@ bool Entity::collided(Entity* other)
 		this->x + (this->width * .5f) > other->x + (other->height * .5f))
 	{
 		//colliding with other Entity
-		if (!other->isStatic) // with other player
+		if (!other->isStatic) // with other player(s)
 		{
-			if (this->y < other->y)
+			if (this->y + (this->height / 2 - .01) < other->y - (other->height / 2 + .01))
 			{
 				this->collidedTop = true;
 				other->collidedBottom = true;
 			}
-			if (this->y > other->y)
+			if (this->y + (this->height / 2 - .01)  > other->y - (other->height / 2 + .01))
 			{
 				this->collidedBottom = true;
 				other->collidedTop = true;
 			}
-			if (this->x < other->x)
+			if (this->x < other->x)//p1 is to left of p2
 			{
 				this->collidedRight = true;
 				other->collidedLeft = true;
 			}
-			if (this->x > other->x)
+			if (this->x > other->x)//p1 is to right of p2
 			{
 				this->collidedLeft = true;
 				other->collidedRight = true;
 			}
 		}
-		if (other->isStatic)// with static entity 
+		if (other->isStatic)// with a static entity 
 		{
-			if (this->y < other->y)
+			if (this->y < other->y && (this->x < other->x + other->width/2 && this->x > other->x - width/2))
 			{
 				this->collidedTop = true;
 			}

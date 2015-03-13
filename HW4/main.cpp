@@ -1,9 +1,10 @@
 /*Dominick Cucccurullo
-PONG HW2
+PLatformer HW4
 */
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <vector>
+#include <iostream>
 #include <SDL_image.h>
 #include "Entity.h"
 #include <string>
@@ -77,8 +78,10 @@ bool ProcessInput(Entity* p1, Entity* p2, SDL_Event& event, const Uint8* keys)
 		p1->acceleration_x = 3;
 	}
 	else
+	{
+		p1->velocity_x = 0;
 		p1->acceleration_x = 0;
-
+	}
 	//p2
 	if (keys[SDL_SCANCODE_UP] && !p2->inAir)
 	{
@@ -129,31 +132,47 @@ void FixedUpdate(Entity* p1, Entity* p2, vector<Entity*> statics, float elapsed)
 	{
 		if (p1->collidedTop)
 		{
-			float yPen = fabs(p1->height + p2->height - p1->height / 2 - p2->height / 2);
-			
-			if(!p1->collidedBottom)
-				p1->y -= yPen;
-			p2->y += yPen;
 		}
 		if (p2->collidedTop)
 		{
-			float yPen = fabs(p1->height + p2->height - p1->height / 2 - p2->height / 2);
-
-			if (!p2->collidedBottom)
-				p2->y -= yPen;
-			p1->y += yPen;
 		}
-		//if (p2->collidedBottom)
-		//{
-		//	float yPen = fabs(p1->height + p2->height - p1->height / 2 - p2->height / 2);
-		//	p2->y += yPen;
-		//	p1->y -= yPen;
-		//}
+		if (p1->collidedRight)
+		{
+		}
 	}
 	for (size_t i = 0; i < statics.size(); i++)
 	{
 		if (p1->collided(statics[i]))
 		{
+			if (p1->collidedBottom)
+			{
+			}
+			if (p1->collidedLeft)
+			{
+			}
+			if (p1->collidedRight)
+			{
+				float xPen = fabs(.00001 - p1->width / 2 - statics[i]->width / 2);
+				p1->x -= xPen;
+			}
+			if (p1->collidedTop)
+			{
+			}
+		}
+		if (p2->collided(statics[i]))
+		{
+			if (p2->collidedBottom)
+			{
+			}
+			if (p2->collidedLeft)
+			{
+			}
+			if (p2->collidedRight)
+			{
+			}
+			if (p2->collidedTop)
+			{
+			}
 		}
 	}
 
@@ -207,22 +226,23 @@ int main(int argc, char *argv[])
 
 	Entity* player1 = new Entity();
 	player1->friction_x = 3.0;
-	player1->height = .1;
-	player1->width = .3;
+	player1->height = .3;
+	player1->width = .1;
 	player1->textureID = LoadTexture("paddleRed.png"); // i couldnt get any other png from the internet to work :|
-	player1->x = 0;
-	player1->rotation = 90;
+	player1->x = -.9;
+	player1->rotation = 0;
 	player1->y = .3;
 	player1->inAir = true;
 	Entity* player2 = new Entity();
 
 	player2->textureID = LoadTexture("paddleRed.png");
-	player2->height = .1;
-	player2->width = .3;
-	player2->rotation = 90;
+	player2->height = .3;
+	player2->width = .1;
+	player2->rotation = 0;
 	player2->friction_x = 3;
-	player2->x = .8;
+	player2->x = .9;
 	player2->y = 0;
+	player2->collidedBottom = false;
 	player2->inAir = true;
 
 	vector<Entity*> statics;
@@ -240,15 +260,25 @@ int main(int argc, char *argv[])
 		statics.push_back(block);
 		staticX += .5;
 	}
-	Entity* block = new Entity();
-	block->width = .5;
-	block->height = .1;
-	block->isStatic = true;
-	block->inAir = false;
-	block->textureID = LoadTexture("paddleBlu.png");
-	block->x = -.4;
-	block->y = -.7;
-	statics.push_back(block);
+	Entity* blockL = new Entity();
+	blockL->width = .5;
+	blockL->height = .1;
+	blockL->isStatic = true;
+	blockL->inAir = false;
+	blockL->textureID = LoadTexture("paddleBlu.png");
+	blockL->x = -.4;
+	blockL->y = -.7;
+	statics.push_back(blockL);
+
+	Entity* blockR = new Entity();
+	blockR->width = .5;
+	blockR->height = .1;
+	blockR->isStatic = true;
+	blockR->inAir = false;
+	blockR->textureID = LoadTexture("paddleBlu.png");
+	blockR->x = .4;
+	blockR->y = -.7;
+	statics.push_back(blockR);
 	
 	while (ProcessInput(player1, player2, event, keys))
 	{
