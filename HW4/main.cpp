@@ -88,11 +88,11 @@ bool ProcessInput(Entity* p1, Entity* p2, SDL_Event& event, const Uint8* keys)
 		p2->velocity_y = 3.0;
 		p2->inAir = true;
 	}
-	if (keys[SDL_SCANCODE_LEFT] && !p2->collidedLeft)
+	if (keys[SDL_SCANCODE_LEFT])
 	{
 		p2->acceleration_x = -3;
 	}
-	else if (keys[SDL_SCANCODE_RIGHT] && !p2->collidedRight)
+	else if (keys[SDL_SCANCODE_RIGHT])
 	{
 		p2->acceleration_x = 3;
 	}
