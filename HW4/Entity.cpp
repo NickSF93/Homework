@@ -58,8 +58,17 @@ bool Entity::collided(Entity* other)
 		return true;
 	}
 	else
+	{
+		this->collidedBottom = false;
+		this->collidedTop = false;
+		this->collidedLeft = false;
+		this->collidedRight = false;
+		other->collidedBottom = false;
+		other->collidedTop = false;
+		other->collidedLeft = false;
+		other->collidedRight = false;
 		return false;
-
+	}
 }
 void Entity::Draw()
 {
